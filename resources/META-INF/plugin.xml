@@ -52,14 +52,11 @@
 
         <!-- EEX -->
         <!--<braceMatcher filetype="EEx" implementationClass="org.elixir_lang.eex.BraceMatcher"/>-->
-        <fileType.fileViewProviderFactory filetype="EEx"
-                                          implementationClass="org.elixir_lang.eex.file.view_provider.Factory"/>
-        <fileType name="Embedded Elixir" implementationClass="org.elixir_lang.eex.file.Type" fieldName="INSTANCE"
-                  language="EEx" extensions="eex"/>
-        <fileType name="Live Embedded Elixir" implementationClass="org.elixir_lang.leex.file.Type" fieldName="INSTANCE"
-                  language="EEx" extensions="leex"/>
-        <lang.fileViewProviderFactory language="EEx"
-                                      implementationClass="org.elixir_lang.eex.file.view_provider.Factory"/>
+        <fileType.fileViewProviderFactory filetype="EEx" implementationClass="org.elixir_lang.eex.file.view_provider.Factory"/>
+        <fileType name="Embedded Elixir" implementationClass="org.elixir_lang.eex.file.Type" fieldName="INSTANCE" language="EEx" extensions="eex"/>
+        <fileType name="Live Embedded Elixir" implementationClass="org.elixir_lang.leex.file.Type" fieldName="INSTANCE" language="EEx" extensions="leex"/>
+        <fileType name="HTML Embedded Elixir" implementationClass="org.elixir_lang.heex.file.Type" fieldName="INSTANCE" language="EEx" extensions="heex"/>
+        <lang.fileViewProviderFactory language="EEx" implementationClass="org.elixir_lang.eex.file.view_provider.Factory"/>
         <lang.parserDefinition language="EEx" implementationClass="org.elixir_lang.eex.ParserDefinition"/>
         <!--<lang.psiStructureViewFactory language="EEx" implementationClass="org.elixir_lang.eex.PsiStructureViewFactory"/>-->
 

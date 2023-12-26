@@ -1,7 +1,7 @@
 package org.elixir_lang
 
 import com.ericsson.otp.erlang.*
-import org.apache.commons.lang.NotImplementedException
+import org.apache.commons.lang3.NotImplementedException
 
 /**
  * Emulates behavior of the `gen` Module in Erlang

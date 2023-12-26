@@ -11,6 +11,7 @@ private fun AtOperation.computeReference(): PsiReference? =
         if (!isNonReferencing(this)) {
             when (containingFile.virtualFile?.fileType) {
                 org.elixir_lang.leex.file.Type.INSTANCE -> org.elixir_lang.leex.reference.Assign(this)
+                org.elixir_lang.heex.file.Type.INSTANCE -> org.elixir_lang.heex.reference.Assign(this)
                 else -> ModuleAttribute(this)
             }
         } else {

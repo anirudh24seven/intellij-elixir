@@ -25,7 +25,7 @@ import com.intellij.serviceContainer.AlreadyDisposedException
 import com.intellij.util.system.CpuArch
 import gnu.trove.THashSet
 import org.apache.commons.io.FilenameUtils
-import org.apache.commons.lang.ArrayUtils
+import org.apache.commons.lang3.ArrayUtils
 import org.elixir_lang.Facet
 import org.elixir_lang.Icons
 import org.elixir_lang.jps.HomePath

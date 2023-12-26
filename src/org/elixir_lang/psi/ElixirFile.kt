@@ -58,6 +58,14 @@ class ElixirFile(viewProvider: FileViewProvider) : PsiFileBase(viewProvider, Eli
                         directory.findFile(liveName) as? ElixirFile
                     }
                 }
+                org.elixir_lang.heex.file.Type.INSTANCE -> {
+                    containingFile.parent?.let { directory ->
+                        val nameWithoutExtension = containingFile.name.removeSuffix(".html.heex")
+                        val liveName = "${nameWithoutExtension}.ex"
+
+                        directory.findFile(liveName) as? ElixirFile
+                    }
+                }
                 else -> null
             }
 

@@ -618,6 +618,10 @@ public class ElixirLangElixirParsingTestCase extends ParsingTestCase {
         assertParsed("lib/mix/lib/mix/tasks/compile.leex.ex", Parse.CORRECT);
     }
 
+    public void testMixTasksCompileHeex() {
+        assertParsed("lib/mix/lib/mix/tasks/compile.heex.ex", Parse.CORRECT);
+    }
+
     public void testMixTasksCompileYecc() {
         assertParsed("lib/mix/lib/mix/tasks/compile.yecc.ex", Parse.CORRECT);
     }

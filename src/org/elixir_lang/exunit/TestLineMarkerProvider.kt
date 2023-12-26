@@ -5,7 +5,7 @@ import com.intellij.execution.lineMarker.RunLineMarkerContributor
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.psi.PsiElement
 import com.intellij.psi.impl.source.tree.LeafPsiElement
-import org.apache.commons.lang.SystemUtils
+import org.apache.commons.lang3.SystemUtils
 import org.elixir_lang.exunit.configuration.SUFFIX
 import org.elixir_lang.exunit.configuration.lineNumber
 import org.elixir_lang.mix.TestFinder
@@ -59,7 +59,7 @@ class ExUnitLineMarkerProvider : RunLineMarkerContributor() {
         if (SystemUtils.IS_OS_WINDOWS) {
             // In Elixir, the drive letter is lowercase for some reason.
             val location = "file://".length
-            url = url.replaceRange(location, location + 1, url[location].toLowerCase().toString())
+            url = url.replaceRange(location, location + 1, url[location].lowercaseChar().toString())
         }
         val state = TestStateStorage.getInstance(element.project)?.getState(url)
         return withExecutorActions(getTestStateIcon(state, isClass))
