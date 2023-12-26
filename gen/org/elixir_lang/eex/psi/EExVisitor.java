@@ -7,6 +7,14 @@ import com.intellij.psi.PsiElement;
 
 public class EExVisitor extends PsiElementVisitor {
 
+  public void visitSlotClosing(@NotNull EExSlotClosing o) {
+    visitPsiElement(o);
+  }
+
+  public void visitSlotOpening(@NotNull EExSlotOpening o) {
+    visitPsiElement(o);
+  }
+
   public void visitTag(@NotNull EExTag o) {
     visitPsiElement(o);
   }

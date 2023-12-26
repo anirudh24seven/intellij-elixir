@@ -11,10 +11,7 @@ import org.jetbrains.annotations.NotNull;
 public class Factory implements com.intellij.psi.FileViewProviderFactory {
     @NotNull
     @Override
-    public FileViewProvider createFileViewProvider(@NotNull VirtualFile virtualFile,
-                                                   @NotNull Language language,
-                                                   @NotNull PsiManager psiManager,
-                                                   boolean eventSystemEnabled) {
+    public FileViewProvider createFileViewProvider(@NotNull VirtualFile virtualFile, @NotNull Language language, @NotNull PsiManager psiManager, boolean eventSystemEnabled) {
         assert language.isKindOf(org.elixir_lang.eex.Language.INSTANCE);
         return new ViewProvider(psiManager, virtualFile, eventSystemEnabled, language);
     }

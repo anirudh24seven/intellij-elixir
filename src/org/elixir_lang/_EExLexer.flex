@@ -24,49 +24,29 @@ import static org.elixir_lang.eex.psi.Types.*;
 
 EOL=\R
 WHITE_SPACE=\s+
-OPENING = "<%"
-CLOSING = "%>"
 
-COMMENT_MARKER = "#"
-EQUALS_MARKER = "="
-// See https://github.com/elixir-lang/elixir/pull/6281
-FORWARD_SLASH_MARKER = "/"
-PIPE_MARKER = "|"
-ESCAPED_OPENING = "<%%"
-PROCEDURAL_OPENING = {OPENING} " "
-
-WHITE_SPACE = [\ \t\f\r\n]+
-ANY = [^]
 
 %%
 <YYINITIAL> {
-  {ESCAPED_OPENING}                { return ESCAPED_OPENING; }
-  {OPENING}                 { return OPENING; }
-}
-
-<MARKER_MAYBE> {
-  {COMMENT_MARKER}                  { return COMMENT_MARKER; }
-  {EQUALS_MARKER}                  { return EQUALS_MARKER; }
-  {FORWARD_SLASH_MARKER}                  { return FORWARD_SLASH_MARKER; }
-  {PIPE_MARKER}                  { return PIPE_MARKER; }
   {WHITE_SPACE}        { return WHITE_SPACE; }
-}
 
-<COMMENT, ELIXIR> {
-  {CLOSING}                 { return CLOSING; }
-}
-
-<COMMENT> {
+  "%>"                 { return CLOSING; }
   "Comment"            { return COMMENT; }
-}
-
-<ELIXIR> {
-  "Elixir"             { return ELIXIR; }
-}
-
-<WHITESPACE_MAYBE> {
+  "#"                  { return COMMENT_MARKER; }
   "Data"               { return DATA; }
   "Empty Marker"       { return EMPTY_MARKER; }
+  "="                  { return EQUALS_MARKER; }
+  "Elixir"             { return ELIXIR; }
+  "<%%"                { return ESCAPED_OPENING; }
+  "/"                  { return FORWARD_SLASH_MARKER; }
+  "<%"                 { return OPENING; }
+  "<."                 { return SLOT_OPENING_OPENING; }
+  ">"                  { return SLOT_OPENING_CLOSING; }
+  "/>"                 { return SLOT_OPENING_SAME_CLOSING; }
+  "</."                { return SLOT_CLOSING_OPENING; }
+  ">"                  { return SLOT_CLOSING_CLOSING; }
+  "|"                  { return PIPE_MARKER; }
+
 
 }
 

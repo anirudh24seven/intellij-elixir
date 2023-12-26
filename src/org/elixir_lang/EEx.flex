@@ -4,9 +4,19 @@ import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IElementType;
 import org.elixir_lang.eex.psi.Types;
 
+import static com.intellij.psi.TokenType.BAD_CHARACTER;
+import static com.intellij.psi.TokenType.WHITE_SPACE;
+import static org.elixir_lang.eex.psi.Types.*;
+
 %%
 
 // public instead of package-local to make testing easier.
+%{
+  public _EExLexer() {
+    this((java.io.Reader)null);
+  }
+%}
+
 %public
 %class Flex
 %implements com.intellij.lexer.FlexLexer
@@ -25,6 +35,12 @@ import org.elixir_lang.eex.psi.Types;
 
 OPENING = "<%"
 CLOSING = "%>"
+SLOT_OPENING_OPENING = "<."
+SLOT_OPENING_CLOSING = ">"
+SLOT_CLOSING_OPENING = "</."
+SLOT_CLOSING_CLOSING = ">"
+SLOT_OPENING_SAME_CLOSING = "/>"
+%unicode
 
 COMMENT_MARKER = "#"
 EQUALS_MARKER = "="
@@ -33,6 +49,7 @@ FORWARD_SLASH_MARKER = "/"
 PIPE_MARKER = "|"
 ESCAPED_OPENING = "<%%"
 PROCEDURAL_OPENING = {OPENING} " "
+EOL=\R
 
 WHITE_SPACE = [\ \t\f\r\n]+
 ANY = [^]
@@ -46,6 +63,11 @@ ANY = [^]
 
 <YYINITIAL> {
   {ESCAPED_OPENING} { return Types.ESCAPED_OPENING; }
+  {SLOT_OPENING_OPENING}             { return SLOT_OPENING_OPENING; }
+  {SLOT_OPENING_CLOSING}             { return SLOT_OPENING_CLOSING; }
+  {SLOT_CLOSING_OPENING}             { return SLOT_CLOSING_OPENING; }
+  {SLOT_CLOSING_CLOSING}             { return SLOT_CLOSING_CLOSING; }
+  {SLOT_OPENING_SAME_CLOSING}             { return SLOT_OPENING_SAME_CLOSING; }
   {OPENING}         { yybegin(MARKER_MAYBE);
                       return Types.OPENING; }
   {ANY}             { return Types.DATA; }
@@ -84,3 +106,4 @@ ANY = [^]
   {ANY}                                { handleInState(YYINITIAL); }
 }
 
+[^] { return BAD_CHARACTER; }

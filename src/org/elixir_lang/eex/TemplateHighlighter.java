@@ -28,9 +28,7 @@ import static org.elixir_lang.eex.file.Type.onlyTemplateDataFileType;
 
 // See https://github.com/JetBrains/intellij-plugins/blob/500f42337a87f463e0340f43e2411266fcfa9c5f/handlebars/src/com/dmarcotte/handlebars/HbTemplateHighlighter.java
 public class TemplateHighlighter extends LayeredLexerEditorHighlighter {
-    public TemplateHighlighter(@Nullable Project project,
-                               @Nullable VirtualFile virtualFile,
-                               @NotNull EditorColorsScheme editorColorsScheme) {
+    public TemplateHighlighter(@Nullable Project project, @Nullable VirtualFile virtualFile, @NotNull EditorColorsScheme editorColorsScheme) {
         // create main highlighter
         super(new Highlighter(), editorColorsScheme);
 

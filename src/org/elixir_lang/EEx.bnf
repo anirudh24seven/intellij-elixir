@@ -24,13 +24,22 @@
     ESCAPED_OPENING = "<%%"
     FORWARD_SLASH_MARKER = "/"
     OPENING = "<%"
+    SLOT_OPENING_OPENING = "<."
+    SLOT_OPENING_CLOSING = ">"
+    SLOT_OPENING_SAME_CLOSING = "/>"
+    SLOT_CLOSING_OPENING = "</."
+    SLOT_CLOSING_CLOSING = ">"
     PIPE_MARKER = "|"
   ]
 }
 
-private eexFile ::= (DATA | ESCAPED_OPENING | tag)*
+private eexFile ::= (DATA | ESCAPED_OPENING | tag | slot_opening | slot_closing)*
 tag ::= OPENING (commentBody | elixirBody) CLOSING
         { pin = 1 }
+slot_opening ::= SLOT_OPENING_OPENING (DATA) (SLOT_OPENING_CLOSING | SLOT_OPENING_SAME_CLOSING)
+        { pin = 1}
+slot_closing ::= SLOT_CLOSING_OPENING (DATA) SLOT_CLOSING_CLOSING
+        { pin = 1}
 
 private commentBody ::= COMMENT_MARKER COMMENT?
                         { pin = 1 }

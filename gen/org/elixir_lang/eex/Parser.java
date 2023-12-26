@@ -57,7 +57,7 @@ public class Parser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (DATA | ESCAPED_OPENING | tag)*
+  // (DATA | ESCAPED_OPENING | tag | slot_opening | slot_closing)*
   static boolean eexFile(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "eexFile")) return false;
     while (true) {
@@ -68,13 +68,15 @@ public class Parser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // DATA | ESCAPED_OPENING | tag
+  // DATA | ESCAPED_OPENING | tag | slot_opening | slot_closing
   private static boolean eexFile_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "eexFile_0")) return false;
     boolean r;
     r = consumeToken(b, DATA);
     if (!r) r = consumeToken(b, ESCAPED_OPENING);
     if (!r) r = tag(b, l + 1);
+    if (!r) r = slot_opening(b, l + 1);
+    if (!r) r = slot_closing(b, l + 1);
     return r;
   }
 
@@ -113,6 +115,45 @@ public class Parser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, EQUALS_MARKER);
     if (!r) r = consumeToken(b, FORWARD_SLASH_MARKER);
     if (!r) r = consumeToken(b, PIPE_MARKER);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // SLOT_CLOSING_OPENING (DATA) SLOT_CLOSING_CLOSING
+  public static boolean slot_closing(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "slot_closing")) return false;
+    if (!nextTokenIs(b, SLOT_CLOSING_OPENING)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, SLOT_CLOSING, null);
+    r = consumeToken(b, SLOT_CLOSING_OPENING);
+    p = r; // pin = 1
+    r = r && report_error_(b, consumeToken(b, DATA));
+    r = p && consumeToken(b, SLOT_CLOSING_CLOSING) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  /* ********************************************************** */
+  // SLOT_OPENING_OPENING (DATA) (SLOT_OPENING_CLOSING | SLOT_OPENING_SAME_CLOSING)
+  public static boolean slot_opening(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "slot_opening")) return false;
+    if (!nextTokenIs(b, SLOT_OPENING_OPENING)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, SLOT_OPENING, null);
+    r = consumeToken(b, SLOT_OPENING_OPENING);
+    p = r; // pin = 1
+    r = r && report_error_(b, consumeToken(b, DATA));
+    r = p && slot_opening_2(b, l + 1) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  // SLOT_OPENING_CLOSING | SLOT_OPENING_SAME_CLOSING
+  private static boolean slot_opening_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "slot_opening_2")) return false;
+    boolean r;
+    r = consumeToken(b, SLOT_OPENING_CLOSING);
+    if (!r) r = consumeToken(b, SLOT_OPENING_SAME_CLOSING);
     return r;
   }
 

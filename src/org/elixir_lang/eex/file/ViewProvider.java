@@ -37,20 +37,13 @@ public class ViewProvider extends MultiplePsiFilesPerDocumentFileViewProvider
     @NotNull
     private final com.intellij.lang.Language templateDataLanguage;
 
-    public ViewProvider(@NotNull PsiManager manager,
-                        @NotNull VirtualFile file,
-                        boolean physical,
-                        @NotNull com.intellij.lang.Language baseLanguage,
-                        @NotNull com.intellij.lang.Language templateLanguage) {
+    public ViewProvider(@NotNull PsiManager manager, @NotNull VirtualFile file, boolean physical, @NotNull com.intellij.lang.Language baseLanguage, @NotNull com.intellij.lang.Language templateLanguage) {
         super(manager, file, physical);
         this.baseLanguage = baseLanguage;
         this.templateDataLanguage = templateLanguage;
     }
 
-    public ViewProvider(@NotNull PsiManager psiManager,
-                        @NotNull VirtualFile virtualFile,
-                        boolean physical,
-                        @NotNull com.intellij.lang.Language baseLanguage) {
+    public ViewProvider(@NotNull PsiManager psiManager, @NotNull VirtualFile virtualFile, boolean physical, @NotNull com.intellij.lang.Language baseLanguage) {
         this(psiManager, virtualFile, physical, baseLanguage, templateDataLanguage(psiManager, virtualFile));
     }
 
@@ -74,8 +67,7 @@ public class ViewProvider extends MultiplePsiFilesPerDocumentFileViewProvider
     private static com.intellij.lang.Language templateDataLanguage(@NotNull PsiManager psiManager,
                                                                    @NotNull VirtualFile virtualFile) {
         Project project = psiManager.getProject();
-        com.intellij.lang.Language templateDataLanguage =
-                TemplateDataLanguageMappings.getInstance(project).getMapping(virtualFile);
+        com.intellij.lang.Language templateDataLanguage = TemplateDataLanguageMappings.getInstance(project).getMapping(virtualFile);
 
         if (templateDataLanguage == null) {
             templateDataLanguage = onlyTemplateDataFileType(virtualFile)
