@@ -1,10 +1,10 @@
 // This is a generated file. Not intended for manual editing.
 package org.elixir_lang.eex.psi;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.IElementType;
-import org.elixir_lang.eex.psi.impl.EExTagImpl;
+import com.intellij.psi.PsiElement;
+import com.intellij.lang.ASTNode;
+import org.elixir_lang.eex.psi.impl.*;
 
 public interface Types {
 
@@ -25,7 +25,7 @@ public interface Types {
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-       if (type == TAG) {
+      if (type == TAG) {
         return new EExTagImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);

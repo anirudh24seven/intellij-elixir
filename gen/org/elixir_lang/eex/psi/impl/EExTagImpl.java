@@ -1,16 +1,19 @@
 // This is a generated file. Not intended for manual editing.
 package org.elixir_lang.eex.psi.impl;
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import java.util.List;
+import org.jetbrains.annotations.*;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
-import org.elixir_lang.eex.psi.EExTag;
-import org.elixir_lang.eex.psi.EExVisitor;
-import org.jetbrains.annotations.NotNull;
+import com.intellij.psi.util.PsiTreeUtil;
+import static org.elixir_lang.eex.psi.Types.*;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import org.elixir_lang.eex.psi.*;
 
 public class EExTagImpl extends ASTWrapperPsiElement implements EExTag {
 
-  public EExTagImpl(ASTNode node) {
+  public EExTagImpl(@NotNull ASTNode node) {
     super(node);
   }
 
@@ -18,6 +21,7 @@ public class EExTagImpl extends ASTWrapperPsiElement implements EExTag {
     visitor.visitTag(this);
   }
 
+  @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof EExVisitor) accept((EExVisitor)visitor);
     else super.accept(visitor);

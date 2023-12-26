@@ -1,15 +1,15 @@
 // This is a generated file. Not intended for manual editing.
 package org.elixir_lang.eex;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.lang.LightPsiParser;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.PsiBuilder.Marker;
-import com.intellij.lang.PsiParser;
-import com.intellij.psi.tree.IElementType;
-
-import static com.intellij.lang.parser.GeneratedParserUtilBase.*;
 import static org.elixir_lang.eex.psi.Types.*;
+import static com.intellij.lang.parser.GeneratedParserUtilBase.*;
+import com.intellij.psi.tree.IElementType;
+import com.intellij.lang.ASTNode;
+import com.intellij.psi.tree.TokenSet;
+import com.intellij.lang.PsiParser;
+import com.intellij.lang.LightPsiParser;
 
 @SuppressWarnings({"SimplifiableIfStatement", "UnusedAssignment"})
 public class Parser implements PsiParser, LightPsiParser {
@@ -23,16 +23,15 @@ public class Parser implements PsiParser, LightPsiParser {
     boolean r;
     b = adapt_builder_(t, b, this, null);
     Marker m = enter_section_(b, 0, _COLLAPSE_, null);
-    if (t == TAG) {
-      r = tag(b, 0);
-    }
-    else {
-      r = parse_root_(t, b, 0);
-    }
+    r = parse_root_(t, b);
     exit_section_(b, 0, m, t, r, true, TRUE_CONDITION);
   }
 
-  protected boolean parse_root_(IElementType t, PsiBuilder b, int l) {
+  protected boolean parse_root_(IElementType t, PsiBuilder b) {
+    return parse_root_(t, b, 0);
+  }
+
+  static boolean parse_root_(IElementType t, PsiBuilder b, int l) {
     return eexFile(b, l + 1);
   }
 
@@ -61,11 +60,10 @@ public class Parser implements PsiParser, LightPsiParser {
   // (DATA | ESCAPED_OPENING | tag)*
   static boolean eexFile(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "eexFile")) return false;
-    int c = current_position_(b);
     while (true) {
+      int c = current_position_(b);
       if (!eexFile_0(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "eexFile", c)) break;
-      c = current_position_(b);
     }
     return true;
   }
@@ -74,11 +72,9 @@ public class Parser implements PsiParser, LightPsiParser {
   private static boolean eexFile_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "eexFile_0")) return false;
     boolean r;
-    Marker m = enter_section_(b);
     r = consumeToken(b, DATA);
     if (!r) r = consumeToken(b, ESCAPED_OPENING);
     if (!r) r = tag(b, l + 1);
-    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -113,12 +109,10 @@ public class Parser implements PsiParser, LightPsiParser {
   static boolean elixirMarker(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "elixirMarker")) return false;
     boolean r;
-    Marker m = enter_section_(b);
     r = consumeToken(b, EMPTY_MARKER);
     if (!r) r = consumeToken(b, EQUALS_MARKER);
     if (!r) r = consumeToken(b, FORWARD_SLASH_MARKER);
     if (!r) r = consumeToken(b, PIPE_MARKER);
-    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -141,10 +135,8 @@ public class Parser implements PsiParser, LightPsiParser {
   private static boolean tag_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_1")) return false;
     boolean r;
-    Marker m = enter_section_(b);
     r = commentBody(b, l + 1);
     if (!r) r = elixirBody(b, l + 1);
-    exit_section_(b, m, null, r);
     return r;
   }
 
