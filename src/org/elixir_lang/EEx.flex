@@ -32,6 +32,7 @@ EQUALS_MARKER = "="
 FORWARD_SLASH_MARKER = "/"
 PIPE_MARKER = "|"
 ESCAPED_OPENING = "<%%"
+COMMENT_OPENING = "<%!--"
 PROCEDURAL_OPENING = {OPENING} " "
 
 WHITE_SPACE = [\ \t\f\r\n]+
@@ -46,6 +47,7 @@ ANY = [^]
 
 <YYINITIAL> {
   {ESCAPED_OPENING} { return Types.ESCAPED_OPENING; }
+  {COMMENT_OPENING} { return Types.COMMENT_OPENING; }
   {OPENING}         { yybegin(MARKER_MAYBE);
                       return Types.OPENING; }
   {ANY}             { return Types.DATA; }

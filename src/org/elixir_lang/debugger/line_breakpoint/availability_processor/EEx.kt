@@ -20,6 +20,7 @@ class EEx : AvailabilityProcessor() {
                             ElixirTypes.EEX_DATA,
                             ElixirTypes.EEX_EMPTY_MARKER,
                             ElixirTypes.EEX_ESCAPED_OPENING,
+                            ElixirTypes.EEX_COMMENT_OPENING,
                             ElixirTypes.EEX_FORWARD_SLASH_MARKER,
                             ElixirTypes.EEX_OPENING,
                             ElixirTypes.EEX_PIPE_MARKER,

@@ -57,7 +57,7 @@ public class Parser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (DATA | ESCAPED_OPENING | tag)*
+  // (DATA | ESCAPED_OPENING | COMMENT_OPENING | tag)*
   static boolean eexFile(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "eexFile")) return false;
     while (true) {
@@ -68,12 +68,13 @@ public class Parser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // DATA | ESCAPED_OPENING | tag
+  // DATA | ESCAPED_OPENING | COMMENT_OPENING | tag
   private static boolean eexFile_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "eexFile_0")) return false;
     boolean r;
     r = consumeToken(b, DATA);
     if (!r) r = consumeToken(b, ESCAPED_OPENING);
+    if (!r) r = consumeToken(b, COMMENT_OPENING);
     if (!r) r = tag(b, l + 1);
     return r;
   }

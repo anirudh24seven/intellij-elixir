@@ -419,6 +419,7 @@
     EEX_EMPTY_MARKER = "EEx Empty Marker"
     EEX_EQUALS_MARKER = "EEx Equals Marker (=)"
     EEX_ESCAPED_OPENING = "<%%"
+    EEX_COMMENT_OPENING = "<%!--"
     EEX_FORWARD_SLASH_MARKER = "EEx Forward Slash Marker (/)"
     EEX_OPENING = "<%"
     EEX_PIPE_MARKER = "EEx Pipe Marker (|)"
@@ -2008,7 +2009,7 @@ accessExpression ::= captureNumericOperation |
                      }
 
 // See eexFile in EEx.bnf
-eex ::= (EEX_DATA | EEX_ESCAPED_OPENING | eexTag)+
+eex ::= (EEX_DATA | EEX_ESCAPED_OPENING | EEX_COMMENT_OPENING | eexTag)+
         {
           methods = [
             processDeclarations

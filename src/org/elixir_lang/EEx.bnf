@@ -22,13 +22,14 @@
     EQUALS_MARKER = "="
     ELIXIR = "Elixir"
     ESCAPED_OPENING = "<%%"
+    COMMENT_OPENING = "<%!--"
     FORWARD_SLASH_MARKER = "/"
     OPENING = "<%"
     PIPE_MARKER = "|"
   ]
 }
 
-private eexFile ::= (DATA | ESCAPED_OPENING | tag)*
+private eexFile ::= (DATA | ESCAPED_OPENING | COMMENT_OPENING | tag)*
 tag ::= OPENING (commentBody | elixirBody) CLOSING
         { pin = 1 }
 

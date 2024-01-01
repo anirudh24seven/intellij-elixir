@@ -13,6 +13,7 @@ public interface Types {
   IElementType CLOSING = new TokenType("%>");
   IElementType COMMENT = new TokenType("Comment");
   IElementType COMMENT_MARKER = new TokenType("#");
+  IElementType COMMENT_OPENING = new TokenType("<%!--");
   IElementType DATA = new TokenType("Data");
   IElementType ELIXIR = new TokenType("Elixir");
   IElementType EMPTY_MARKER = new TokenType("Empty Marker");
