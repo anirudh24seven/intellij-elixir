@@ -32,7 +32,8 @@ EQUALS_MARKER = "="
 FORWARD_SLASH_MARKER = "/"
 PIPE_MARKER = "|"
 ESCAPED_OPENING = "<%%"
-COMMENT_OPENING = "<%!--"
+COMMENTED_OPENING = "<%!--"
+COMMENTED_CLOSING = "--%>"
 PROCEDURAL_OPENING = {OPENING} " "
 
 WHITE_SPACE = [\ \t\f\r\n]+
@@ -42,15 +43,21 @@ ANY = [^]
 %state COMMENT
 %state ELIXIR
 %state MARKER_MAYBE
+%state HTML_COMMENTS
 
 %%
 
 <YYINITIAL> {
   {ESCAPED_OPENING} { return Types.ESCAPED_OPENING; }
-  {COMMENT_OPENING} { return Types.COMMENT_OPENING; }
+  {COMMENTED_OPENING} { yybegin(HTML_COMMENTS); return Types.COMMENTED_OPENING; }
   {OPENING}         { yybegin(MARKER_MAYBE);
                       return Types.OPENING; }
   {ANY}             { return Types.DATA; }
+}
+
+<HTML_COMMENTS> {
+    {COMMENTED_CLOSING} { yybegin(WHITESPACE_MAYBE); return Types.COMMENTED_CLOSING; }
+    {ANY} { return Types.COMMENT; }
 }
 
 <MARKER_MAYBE> {

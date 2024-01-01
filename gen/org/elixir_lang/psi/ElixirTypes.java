@@ -232,7 +232,8 @@ public interface ElixirTypes {
   IElementType EEX_CLOSING = new ElixirTokenType("%>");
   IElementType EEX_COMMENT = new ElixirTokenType("EEx Comment");
   IElementType EEX_COMMENT_MARKER = new ElixirTokenType("EEx Comment Marker (#)");
-  IElementType EEX_COMMENT_OPENING = new ElixirTokenType("<%!--");
+  IElementType EEX_COMMENTED_OPENING = new ElixirTokenType("<%!--");
+  IElementType EEX_COMMENTED_CLOSING = new ElixirTokenType("--%>");
   IElementType EEX_DATA = new ElixirTokenType("EEx Data");
   IElementType EEX_EMPTY_MARKER = new ElixirTokenType("EEx Empty Marker");
   IElementType EEX_EQUALS_MARKER = new ElixirTokenType("EEx Equals Marker (=)");

@@ -57,7 +57,7 @@ public class Parser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (DATA | ESCAPED_OPENING | COMMENT_OPENING | tag)*
+  // (DATA | ESCAPED_OPENING | htmlComment | tag)*
   static boolean eexFile(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "eexFile")) return false;
     while (true) {
@@ -68,13 +68,13 @@ public class Parser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // DATA | ESCAPED_OPENING | COMMENT_OPENING | tag
+  // DATA | ESCAPED_OPENING | htmlComment | tag
   private static boolean eexFile_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "eexFile_0")) return false;
     boolean r;
     r = consumeToken(b, DATA);
     if (!r) r = consumeToken(b, ESCAPED_OPENING);
-    if (!r) r = consumeToken(b, COMMENT_OPENING);
+    if (!r) r = htmlComment(b, l + 1);
     if (!r) r = tag(b, l + 1);
     return r;
   }
@@ -115,6 +115,28 @@ public class Parser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, FORWARD_SLASH_MARKER);
     if (!r) r = consumeToken(b, PIPE_MARKER);
     return r;
+  }
+
+  /* ********************************************************** */
+  // COMMENTED_OPENING (COMMENT?) COMMENTED_CLOSING
+  public static boolean htmlComment(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "htmlComment")) return false;
+    if (!nextTokenIs(b, COMMENTED_OPENING)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, HTML_COMMENT, null);
+    r = consumeToken(b, COMMENTED_OPENING);
+    p = r; // pin = 1
+    r = r && report_error_(b, htmlComment_1(b, l + 1));
+    r = p && consumeToken(b, COMMENTED_CLOSING) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  // COMMENT?
+  private static boolean htmlComment_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "htmlComment_1")) return false;
+    consumeToken(b, COMMENT);
+    return true;
   }
 
   /* ********************************************************** */

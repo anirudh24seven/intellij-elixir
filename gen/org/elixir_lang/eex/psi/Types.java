@@ -8,12 +8,14 @@ import org.elixir_lang.eex.psi.impl.*;
 
 public interface Types {
 
+  IElementType HTML_COMMENT = new ElementType("HTML_COMMENT");
   IElementType TAG = new ElementType("TAG");
 
   IElementType CLOSING = new TokenType("%>");
   IElementType COMMENT = new TokenType("Comment");
+  IElementType COMMENTED_CLOSING = new TokenType("--%>");
+  IElementType COMMENTED_OPENING = new TokenType("<%!--");
   IElementType COMMENT_MARKER = new TokenType("#");
-  IElementType COMMENT_OPENING = new TokenType("<%!--");
   IElementType DATA = new TokenType("Data");
   IElementType ELIXIR = new TokenType("Elixir");
   IElementType EMPTY_MARKER = new TokenType("Empty Marker");
@@ -26,7 +28,10 @@ public interface Types {
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-      if (type == TAG) {
+      if (type == HTML_COMMENT) {
+        return new EExHtmlCommentImpl(node);
+      }
+      else if (type == TAG) {
         return new EExTagImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);

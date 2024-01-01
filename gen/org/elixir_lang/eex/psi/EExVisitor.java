@@ -7,6 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public class EExVisitor extends PsiElementVisitor {
 
+  public void visitHtmlComment(@NotNull EExHtmlComment o) {
+    visitPsiElement(o);
+  }
+
   public void visitTag(@NotNull EExTag o) {
     visitPsiElement(o);
   }

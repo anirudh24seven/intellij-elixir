@@ -889,7 +889,7 @@ public class ElixirParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (EEX_DATA | EEX_ESCAPED_OPENING | EEX_COMMENT_OPENING | eexTag)+
+  // (EEX_DATA | EEX_ESCAPED_OPENING | EEX_COMMENTED_OPENING | eexTag)+
   public static boolean eex(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "eex")) return false;
     boolean r;
@@ -904,13 +904,13 @@ public class ElixirParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // EEX_DATA | EEX_ESCAPED_OPENING | EEX_COMMENT_OPENING | eexTag
+  // EEX_DATA | EEX_ESCAPED_OPENING | EEX_COMMENTED_OPENING | eexTag
   private static boolean eex_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "eex_0")) return false;
     boolean r;
     r = consumeToken(b, EEX_DATA);
     if (!r) r = consumeToken(b, EEX_ESCAPED_OPENING);
-    if (!r) r = consumeToken(b, EEX_COMMENT_OPENING);
+    if (!r) r = consumeToken(b, EEX_COMMENTED_OPENING);
     if (!r) r = eexTag(b, l + 1);
     return r;
   }
