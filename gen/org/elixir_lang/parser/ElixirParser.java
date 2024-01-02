@@ -889,7 +889,7 @@ public class ElixirParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (EEX_DATA | EEX_ESCAPED_OPENING | EEX_COMMENTED_OPENING | eexTag)+
+  // (EEX_DATA | EEX_ESCAPED_OPENING | eexComment | eexTag)+
   public static boolean eex(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "eex")) return false;
     boolean r;
@@ -904,14 +904,28 @@ public class ElixirParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // EEX_DATA | EEX_ESCAPED_OPENING | EEX_COMMENTED_OPENING | eexTag
+  // EEX_DATA | EEX_ESCAPED_OPENING | eexComment | eexTag
   private static boolean eex_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "eex_0")) return false;
     boolean r;
     r = consumeToken(b, EEX_DATA);
     if (!r) r = consumeToken(b, EEX_ESCAPED_OPENING);
-    if (!r) r = consumeToken(b, EEX_COMMENTED_OPENING);
+    if (!r) r = eexComment(b, l + 1);
     if (!r) r = eexTag(b, l + 1);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // EEX_COMMENTED_OPENING (EEX_COMMENT) EEX_COMMENTED_CLOSING
+  public static boolean eexComment(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "eexComment")) return false;
+    if (!nextTokenIs(b, EEX_COMMENTED_OPENING)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, EEX_COMMENTED_OPENING);
+    r = r && consumeToken(b, EEX_COMMENT);
+    r = r && consumeToken(b, EEX_COMMENTED_CLOSING);
+    exit_section_(b, m, EEX_COMMENT, r);
     return r;
   }
 

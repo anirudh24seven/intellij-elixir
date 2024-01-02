@@ -31,6 +31,12 @@ public class ElixirEexImpl extends ASTWrapperPsiElement implements ElixirEex {
 
   @Override
   @NotNull
+  public List<ElixirEexComment> getEexCommentList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, ElixirEexComment.class);
+  }
+
+  @Override
+  @NotNull
   public List<ElixirEexTag> getEexTagList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, ElixirEexTag.class);
   }

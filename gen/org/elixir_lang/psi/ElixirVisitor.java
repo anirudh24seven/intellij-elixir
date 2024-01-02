@@ -193,6 +193,10 @@ public class ElixirVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitEexComment(@NotNull ElixirEexComment o) {
+    visitPsiElement(o);
+  }
+
   public void visitEexTag(@NotNull ElixirEexTag o) {
     visitPsiElement(o);
   }

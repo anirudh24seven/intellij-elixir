@@ -10,6 +10,9 @@ import com.intellij.psi.scope.PsiScopeProcessor;
 public interface ElixirEex extends PsiElement {
 
   @NotNull
+  List<ElixirEexComment> getEexCommentList();
+
+  @NotNull
   List<ElixirEexTag> getEexTagList();
 
   boolean processDeclarations(@NotNull PsiScopeProcessor processor, @NotNull ResolveState state, PsiElement lastParent, @NotNull PsiElement place);

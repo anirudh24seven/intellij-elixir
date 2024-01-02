@@ -2010,11 +2010,18 @@ accessExpression ::= captureNumericOperation |
                      }
 
 // See eexFile in EEx.bnf
-eex ::= (EEX_DATA | EEX_ESCAPED_OPENING | EEX_COMMENTED_OPENING | eexTag)+
+eex ::= (EEX_DATA | EEX_ESCAPED_OPENING | eexComment | eexTag)+
         {
           methods = [
             processDeclarations
           ]
+        }
+
+eexComment ::= EEX_COMMENTED_OPENING (EEX_COMMENT) EEX_COMMENTED_CLOSING
+        {
+            methods = [
+                processDeclarations
+            ]
         }
 
 // CANNOT be `{ pin = 1 }` because an `EEX_OPENING` is also used in `doBlock`

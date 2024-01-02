@@ -43,6 +43,7 @@ public interface ElixirTypes {
   IElementType DOT_INFIX_OPERATOR = new ElixirElementType("DOT_INFIX_OPERATOR");
   IElementType DO_BLOCK = new ElixirElementType("DO_BLOCK");
   IElementType EEX = new ElixirElementType("EEX");
+  IElementType EEX_COMMENT = new ElixirElementType("EEX_COMMENT");
   IElementType EEX_TAG = new ElixirElementType("EEX_TAG");
   IElementType EMPTY_PARENTHESES = new ElixirElementType("EMPTY_PARENTHESES");
   IElementType ENCLOSED_HEXADECIMAL_ESCAPE_SEQUENCE = new ElixirElementType("ENCLOSED_HEXADECIMAL_ESCAPE_SEQUENCE");
@@ -230,10 +231,9 @@ public interface ElixirTypes {
   IElementType DO = new ElixirTokenType("do");
   IElementType DOT_OPERATOR = new ElixirTokenType(".");
   IElementType EEX_CLOSING = new ElixirTokenType("%>");
-  IElementType EEX_COMMENT = new ElixirTokenType("EEx Comment");
-  IElementType EEX_COMMENT_MARKER = new ElixirTokenType("EEx Comment Marker (#)");
-  IElementType EEX_COMMENTED_OPENING = new ElixirTokenType("<%!--");
   IElementType EEX_COMMENTED_CLOSING = new ElixirTokenType("--%>");
+  IElementType EEX_COMMENTED_OPENING = new ElixirTokenType("<%!--");
+  IElementType EEX_COMMENT_MARKER = new ElixirTokenType("EEx Comment Marker (#)");
   IElementType EEX_DATA = new ElixirTokenType("EEx Data");
   IElementType EEX_EMPTY_MARKER = new ElixirTokenType("EEx Empty Marker");
   IElementType EEX_EQUALS_MARKER = new ElixirTokenType("EEx Equals Marker (=)");
@@ -420,6 +420,9 @@ public interface ElixirTypes {
       }
       else if (type == EEX) {
         return new ElixirEexImpl(node);
+      }
+      else if (type == EEX_COMMENT) {
+        return new ElixirEexCommentImpl(node);
       }
       else if (type == EEX_TAG) {
         return new ElixirEexTagImpl(node);
